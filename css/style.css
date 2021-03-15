@@ -1,0 +1,12 @@
+.images_section {
+
+overflow: hidden;
+}
+
+.images_section img {
+float: left;
+margin-right: 3%;
+width: 30%;
+height: 400px;
+}
+
