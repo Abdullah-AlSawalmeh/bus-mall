@@ -26,7 +26,7 @@ let imgs_array = [
 //////////////////// Constructer /////////////////////////////
 function Product (product_name) {
   this.product_name = product_name[0];
-  this.file_path = './img/' + product_name[0] +'.'+ product_name[1];
+  this.file_path = `./img/${product_name[0]}.${product_name[1]}`;
   this.image_shown_counter = 0; 
 }
 
