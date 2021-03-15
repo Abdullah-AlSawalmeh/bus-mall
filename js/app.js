@@ -1,6 +1,8 @@
 'use strict';
 /////////////////////////// Globals ///////////////////
 let section = document.getElementById('images_section');
+
+let imgsobjs = [];
 let imgs_array = [
   ['bag', 'jpg'],
   ['banana', 'jpg'],
@@ -27,31 +29,70 @@ let imgs_array = [
 function Product (product_name) {
   this.product_name = product_name[0];
   this.file_path = `./img/${product_name[0]}.${product_name[1]}`;
-  this.image_shown_counter = 0; 
+  this.image_shown_counter = 0;
+  this.image_vote= 0;
+  imgsobjs.push(this);
 }
-
-Product.prototype.render = function() {
-  // console.log(this.product_name);
-  // console.log(this.file_path);
-  let img = document.createElement('img');
-  img.src = this.file_path;
-  section.appendChild(img);
-};
 //////////////////// End Of Constructer /////////////////////////////
-
-
-//////////////Funtion to generate 3 random images on the page////////
-function random_number () {
+//////////////////// Algorithim ////////////////////////////////////
+for (let i = 0; i < imgs_array.length; i++) {
+  new Product(imgs_array[i]);
+}
+function random_number() {
   let min = 0;
   let max = imgs_array.length;
   let random_image = Math.floor(Math.random() * (max - min) + min);
+  // console.log (random_image);
   return random_image;
 }
-
-for (let i = 0; i < 3; i++) {
-  let imgobj = new Product(imgs_array[random_number()]);
-  imgobj.render();
+function random_array() {
+  let rand_array=[0,0,0];
+  while (rand_array[0] === rand_array[1] || rand_array[0] === rand_array[2] || rand_array[1] === rand_array[2]) {
+    for (let i = 0; i < 3; i++) {
+      rand_array[i] = random_number();
+    }
+  }
+  console.log(rand_array);
+  return rand_array;
 }
+random_array();
+
+function render() {
+  let rand_array = random_array();
+  for (let i = 0; i < 3; i++) {
+    let img = document.createElement('img');
+    img.id = 'img' + i ;
+    img.src = imgsobjs[rand_array[i]].file_path;
+    imgsobjs[rand_array[i]].image_shown_counter++;
+    section.appendChild(img);
+  }
+}
+render();
+
+
+
+section.addEventListener('click', clickhandler);
+
+function clickhandler(event) {
+  if (event.target.id === 'img0' || event.target.id === 'img1' || event.target.id === 'img2') {
+    render();
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log(imgsobjs);
+//////////////Funtion to generate 3 random images on the page////////
 
 
 
