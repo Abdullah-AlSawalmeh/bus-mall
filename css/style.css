@@ -1,9 +1,13 @@
-.images_section {
-
+#images_section {
+width: 80%;
 overflow: hidden;
+margin: auto;
+margin-top: 50px;
+margin-bottom: 50px;
+
 }
 
-.images_section img {
+#images_section img {
 float: left;
 margin-right: 3%;
 width: 30%;
