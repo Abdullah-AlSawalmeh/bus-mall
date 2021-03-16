@@ -1,10 +1,18 @@
+h1 {
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin: 30px 0px;
+    background-color: rgb(100 99 132);
+}
+
 #images_section {
 width: 80%;
 overflow: hidden;
 margin: auto;
 margin-top: 50px;
 margin-bottom: 50px;
-
 }
 
 #images_section img {
@@ -14,3 +22,23 @@ width: 30%;
 height: 400px;
 }
 
+
+button {
+    color: white;
+    display: block;
+    width: 200px;
+    margin: auto;
+    padding: 20px;
+    background-color: rgb(100 99 132);
+}
+
+p{
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    color: rgb(100 99 132);
+}
+
+#show_results {
+    margin: 30px 0px;
+}

@@ -1,8 +1,15 @@
 'use strict';
 /////////////////////////// Globals ///////////////////
-let section = document.getElementById('images_section');
+let images_section = document.getElementById('images_section');
+let button = document.getElementById('button');
+let btn = document.createElement('button');
+btn.innerHTML = 'View Results';
+let show_results = document.getElementById('show_results');
 let number_of_images= 3;
 let imgsobjs = [];
+let imgs = [];
+let number_of_rounds = 25;
+let click_handler_counter = 0;
 let imgs_array = [
   ['bag', 'jpg'],
   ['banana', 'jpg'],
@@ -25,12 +32,16 @@ let imgs_array = [
   ['water-can', 'jpg'],
   ['wine-glass', 'jpg']
 ];
-let imgs = [];
-for (let i = 0; i < number_of_images; i++) {
-  imgs[i] = document.createElement('img');
-  imgs[i].id = 'img' + i;
-  section.appendChild(imgs[i]);
+///////////////////////////Function to create the three images side by side ////////////////////
+function create_images() {
+  for (let i = 0; i < number_of_images; i++) {
+    imgs[i] = document.createElement('img');
+    imgs[i].id = 'img' + i;
+    images_section.appendChild(imgs[i]);
+  }
 }
+create_images();
+
 //////////////////// Constructer /////////////////////////////
 function Product (product_name) {
   this.product_name = product_name[0];
@@ -41,16 +52,21 @@ function Product (product_name) {
 }
 //////////////////// End Of Constructer /////////////////////////////
 //////////////////// Algorithim ////////////////////////////////////
-for (let i = 0; i < imgs_array.length; i++) {
-  new Product(imgs_array[i]);
+////// create objects //////
+function create_objects() {
+  for (let i = 0; i < imgs_array.length; i++) {
+    new Product(imgs_array[i]);
+  }
 }
+create_objects();
+////// generate random numbers //////
 function random_number() {
   let min = 0;
   let max = imgs_array.length;
   let random_image = Math.floor(Math.random() * (max - min) + min);
-  // console.log (random_image);
   return random_image;
 }
+////// generate random array so no image will be duplicated //////
 function random_array() {
   let rand_array=[0,0,0];
   while (rand_array[0] === rand_array[1] || rand_array[0] === rand_array[2] || rand_array[1] === rand_array[2]) {
@@ -58,10 +74,9 @@ function random_array() {
       rand_array[i] = random_number();
     }
   }
-  // console.log(rand_array);
   return rand_array;
 }
-
+////// generate images on a randomly manner //////
 function render() {
   let rand_array = random_array();
 
@@ -74,66 +89,40 @@ function render() {
 }
 
 
-
-section.addEventListener('click', clickhandler);
-
+/////////////////////////////////////////Add Listner////////////////////
+images_section.addEventListener('click', clickhandler);
+////////////////////////////images handler //////////////////////
 function clickhandler(event) {
-  if (event.target.id === 'img0' || event.target.id === 'img1' || event.target.id === 'img2') {
-    for (let i = 0; i < imgsobjs.length; i++) {
-      if (imgsobjs[i].product_name === event.target.title) {
-        imgsobjs[i].image_vote++;
-        console.table(imgsobjs[i]);
+  if (click_handler_counter === number_of_rounds) {
+    button.appendChild(btn);
+    btn.addEventListener('click',btnhandler);
+    images_section.removeEventListener('click',clickhandler);
+
+  }
+  else {
+    if (event.target.id === 'img0' || event.target.id === 'img1' || event.target.id === 'img2') {
+      for (let i = 0; i < imgsobjs.length; i++) {
+        if (imgsobjs[i].product_name === event.target.title) {
+          imgsobjs[i].image_vote++;
+          click_handler_counter++;
+          console.log(click_handler_counter);
+        }
       }
+      render();
     }
-    render();}
+  }
+
 }
+/////////////////////// button handler ////////////////////
+function btnhandler() {
+  for (let i = 0; i < imgsobjs.length; i++) {
+    let ptag = document.createElement('p');
+    ptag.innerHTML = imgsobjs[i].product_name + ' had ' + imgsobjs[i].image_vote + ' votes, and was seen ' + imgsobjs[i].image_shown_counter + ' times.';
+    show_results.appendChild(ptag);
+  }
+  btn.removeEventListener('click', btnhandler);}
 
 render();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
