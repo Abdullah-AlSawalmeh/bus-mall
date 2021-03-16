@@ -1,15 +1,19 @@
 'use strict';
 /////////////////////////// Globals ///////////////////
 let images_section = document.getElementById('images_section');
-let button = document.getElementById('button');
-let btn = document.createElement('button');
-btn.innerHTML = 'View Results';
-let show_results = document.getElementById('show_results');
+// let button = document.getElementById('button');
+// let btn = document.createElement('button');
+// btn.innerHTML = 'View Results';
+// let show_results = document.getElementById('show_results');
 let number_of_images= 3;
 let imgsobjs = [];
 let imgs = [];
 let number_of_rounds = 25;
 let click_handler_counter = 0;
+let random_array_glob = [0,0,0];
+let random_array_glob2 = [0,0,0];
+// console.log(random_array_glob);
+// console.log(random_array_glob2);
 let imgs_array = [
   ['bag', 'jpg'],
   ['banana', 'jpg'],
@@ -74,18 +78,34 @@ function random_array() {
       rand_array[i] = random_number();
     }
   }
+  random_array_glob = rand_array;
   return rand_array;
 }
 ////// generate images on a randomly manner //////
 function render() {
-  let rand_array = random_array();
+  // let rand_array = random_array_glob;
+
+  while (random_array_glob[0] === random_array_glob2[0] || random_array_glob[0] === random_array_glob2[1] || random_array_glob[0] === random_array_glob2[2] || random_array_glob[1] === random_array_glob2[1] || random_array_glob[1] === random_array_glob2[2] || random_array_glob[2] === random_array_glob2[2]) {
+    random_array();
+    console.log(random_array_glob);
+  }
+  console.log(random_array_glob);
+  random_array_glob2 = random_array_glob;
+  console.log(random_array_glob2);
 
   for (let i = 0; i < number_of_images; i++) {
     let img = document.getElementById('img' + i);
-    img.title = imgsobjs[rand_array[i]].product_name;
-    img.src = imgsobjs[rand_array[i]].file_path;
-    imgsobjs[rand_array[i]].image_shown_counter++;
+    img.title = imgsobjs[random_array_glob[i]].product_name;
+    img.src = imgsobjs[random_array_glob[i]].file_path;
+    imgsobjs[random_array_glob[i]].image_shown_counter++;
+
+
   }
+  random_array();
+  console.log(random_array_glob);
+  console.log(random_array_glob2);
+
+
 }
 
 
@@ -94,9 +114,10 @@ images_section.addEventListener('click', clickhandler);
 ////////////////////////////images handler //////////////////////
 function clickhandler(event) {
   if (click_handler_counter === number_of_rounds) {
-    button.appendChild(btn);
-    btn.addEventListener('click',btnhandler);
+    // button.appendChild(btn);
+    // btn.addEventListener('click',btnhandler);
     images_section.removeEventListener('click',clickhandler);
+    chart();
 
   }
   else {
@@ -114,15 +135,134 @@ function clickhandler(event) {
 
 }
 /////////////////////// button handler ////////////////////
-function btnhandler() {
-  for (let i = 0; i < imgsobjs.length; i++) {
-    let ptag = document.createElement('p');
-    ptag.innerHTML = imgsobjs[i].product_name + ' had ' + imgsobjs[i].image_vote + ' votes, and was seen ' + imgsobjs[i].image_shown_counter + ' times.';
-    show_results.appendChild(ptag);
-  }
-  btn.removeEventListener('click', btnhandler);}
+// function btnhandler() {
+//   for (let i = 0; i < imgsobjs.length; i++) {
+//     let ptag = document.createElement('p');
+//     ptag.innerHTML = imgsobjs[i].product_name + ' had ' + imgsobjs[i].image_vote + ' votes, and was seen ' + imgsobjs[i].image_shown_counter + ' times.';
+//     show_results.appendChild(ptag);
+//   }
+//   btn.removeEventListener('click', btnhandler);}
 
 render();
+
+function chart() {
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: images_name(),
+      datasets: [
+        {label: '# of Votes',
+          data: images_votes(),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderWidth: 1},
+        {
+          label: '# of Votes',
+          data: images_views(),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderWidth: 1
+        }
+
+      ]
+
+
+
+
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+///////// function to get images labels
+function images_name() {
+  let imgs_name = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_name.push(imgsobjs[i].product_name);
+  }
+  return imgs_name;
+
+}
+///////// function to get images votes
+function images_votes() {
+  let imgs_votes = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_votes.push(imgsobjs[i].image_vote);
+  }
+  return imgs_votes;
+
+}
+
+function images_views() {
+  let imgs_views = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_views.push(imgsobjs[i].image_shown_counter);
+  }
+  return imgs_views;
+
+}
+
+
+
+
+// console.log(random_array_glob);
+// console.log(random_array_glob2);
+
+
+
+
+
+
 
 
 
