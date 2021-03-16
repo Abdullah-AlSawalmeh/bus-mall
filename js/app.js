@@ -1,7 +1,7 @@
 'use strict';
 /////////////////////////// Globals ///////////////////
 let section = document.getElementById('images_section');
-
+let number_of_images= 3;
 let imgsobjs = [];
 let imgs_array = [
   ['bag', 'jpg'],
@@ -25,6 +25,12 @@ let imgs_array = [
   ['water-can', 'jpg'],
   ['wine-glass', 'jpg']
 ];
+let imgs = [];
+for (let i = 0; i < number_of_images; i++) {
+  imgs[i] = document.createElement('img');
+  imgs[i].id = 'img' + i;
+  section.appendChild(imgs[i]);
+}
 //////////////////// Constructer /////////////////////////////
 function Product (product_name) {
   this.product_name = product_name[0];
@@ -48,26 +54,24 @@ function random_number() {
 function random_array() {
   let rand_array=[0,0,0];
   while (rand_array[0] === rand_array[1] || rand_array[0] === rand_array[2] || rand_array[1] === rand_array[2]) {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < number_of_images; i++) {
       rand_array[i] = random_number();
     }
   }
-  console.log(rand_array);
+  // console.log(rand_array);
   return rand_array;
 }
-random_array();
 
 function render() {
   let rand_array = random_array();
-  for (let i = 0; i < 3; i++) {
-    let img = document.createElement('img');
-    img.id = 'img' + i ;
+
+  for (let i = 0; i < number_of_images; i++) {
+    let img = document.getElementById('img' + i);
+    img.title = imgsobjs[rand_array[i]].product_name;
     img.src = imgsobjs[rand_array[i]].file_path;
     imgsobjs[rand_array[i]].image_shown_counter++;
-    section.appendChild(img);
   }
 }
-render();
 
 
 
@@ -75,10 +79,16 @@ section.addEventListener('click', clickhandler);
 
 function clickhandler(event) {
   if (event.target.id === 'img0' || event.target.id === 'img1' || event.target.id === 'img2') {
-    render();
-  
+    for (let i = 0; i < imgsobjs.length; i++) {
+      if (imgsobjs[i].product_name === event.target.title) {
+        imgsobjs[i].image_vote++;
+        console.table(imgsobjs[i]);
+      }
+    }
+    render();}
 }
 
+render();
 
 
 
@@ -87,12 +97,6 @@ function clickhandler(event) {
 
 
 
-
-
-
-
-// console.log(imgsobjs);
-//////////////Funtion to generate 3 random images on the page////////
 
 
 
