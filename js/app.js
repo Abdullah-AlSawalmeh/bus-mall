@@ -94,9 +94,10 @@ images_section.addEventListener('click', clickhandler);
 ////////////////////////////images handler //////////////////////
 function clickhandler(event) {
   if (click_handler_counter === number_of_rounds) {
-    button.appendChild(btn);
-    btn.addEventListener('click',btnhandler);
+    // button.appendChild(btn);
+    // btn.addEventListener('click',btnhandler);
     images_section.removeEventListener('click',clickhandler);
+    chart();
 
   }
   else {
@@ -123,6 +124,207 @@ function btnhandler() {
   btn.removeEventListener('click', btnhandler);}
 
 render();
+
+
+
+
+
+// function chart() {
+//   let ctx = document.getElementById('myChart').getContext('2d');
+//   let myChart = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: images_name(),
+//       datasets: [
+//         [{
+//         label: '# of Votes',
+//         data: images_votes(),
+//         backgroundColor: [
+//           'rgba(255, 99, 132, 0.2)',
+//           'rgba(54, 162, 235, 0.2)',
+//           'rgba(255, 206, 86, 0.2)',
+//           'rgba(75, 192, 192, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
+//           'rgba(255, 159, 64, 0.2)',
+//           'rgba(255, 99, 132, 0.2)',
+//           'rgba(54, 162, 235, 0.2)',
+//           'rgba(255, 206, 86, 0.2)',
+//           'rgba(75, 192, 192, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
+//           'rgba(255, 159, 64, 0.2)',
+//           'rgba(255, 99, 132, 0.2)',
+//           'rgba(54, 162, 235, 0.2)',
+//           'rgba(255, 206, 86, 0.2)',
+//           'rgba(75, 192, 192, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
+//           'rgba(255, 159, 64, 0.2)',
+//           'rgba(153, 102, 255, 0.2)',
+//           'rgba(255, 159, 64, 0.2)',
+//         ],
+//         borderWidth: 1
+//       }],
+//         [{
+//           label: '# of Views',
+//           data: images_views(),
+//           backgroundColor: [
+//             'rgba(255, 99, 132, 0.2)',
+//             'rgba(54, 162, 235, 0.2)',
+//             'rgba(255, 206, 86, 0.2)',
+//             'rgba(75, 192, 192, 0.2)',
+//             'rgba(153, 102, 255, 0.2)',
+//             'rgba(255, 159, 64, 0.2)',
+//             'rgba(255, 99, 132, 0.2)',
+//             'rgba(54, 162, 235, 0.2)',
+//             'rgba(255, 206, 86, 0.2)',
+//             'rgba(75, 192, 192, 0.2)',
+//             'rgba(153, 102, 255, 0.2)',
+//             'rgba(255, 159, 64, 0.2)',
+//             'rgba(255, 99, 132, 0.2)',
+//             'rgba(54, 162, 235, 0.2)',
+//             'rgba(255, 206, 86, 0.2)',
+//             'rgba(75, 192, 192, 0.2)',
+//             'rgba(153, 102, 255, 0.2)',
+//             'rgba(255, 159, 64, 0.2)',
+//             'rgba(153, 102, 255, 0.2)',
+//             'rgba(255, 159, 64, 0.2)',
+//           ],
+//           borderWidth: 1
+//         }]
+//     ]
+//     },
+//     options: {
+//       scales: {
+//         yAxes: [{
+//           ticks: {
+//             beginAtZero: true
+//           }
+//         }]
+//       }
+//     }
+//   });
+
+
+function chart() {
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: images_name(),
+      datasets: [
+        {label: '# of Votes',
+        data: images_votes(),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderWidth: 1},
+        {
+          label: '# of Votes',
+          data: images_views(),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderWidth: 1
+        }
+        
+    ]
+
+
+
+
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+// chart();
+
+
+
+///////// function to get images labels
+function images_name() {
+  let imgs_name = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_name.push(imgsobjs[i].product_name);
+  }
+  return imgs_name;
+
+}
+///////// function to get images votes
+function images_votes() {
+  let imgs_votes = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_votes.push(imgsobjs[i].image_vote);
+  }
+  return imgs_votes;
+
+}
+
+function images_views() {
+  let imgs_views = [];
+  for (let i = 0; i < imgsobjs.length; i++) {
+    imgs_views.push(imgsobjs[i].image_shown_counter);
+  }
+  return imgs_views;
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
