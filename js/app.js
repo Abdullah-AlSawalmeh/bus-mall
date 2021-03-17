@@ -1,6 +1,9 @@
 'use strict';
 /////////////////////////// Globals ///////////////////
 let images_section = document.getElementById('images_section');
+let counter_reset = document.getElementById('counter_reset');
+let vvreset = document.getElementById('vvreset');
+
 let number_of_images = 3;
 let imgsobjs = [];
 let imgs = [];
@@ -127,6 +130,16 @@ function clickhandler(event) {
     }
   }
 
+}
+
+counter_reset.addEventListener('click', reset_counter);
+function reset_counter() {
+  localStorage.setItem('click_handler_counter', 0);
+
+}
+vvreset.addEventListener('click', reset_vv);
+function reset_vv() {
+  localStorage.setItem('sto_imgsobjs', JSON.stringify(imgsobjs));
 }
 
 render();
