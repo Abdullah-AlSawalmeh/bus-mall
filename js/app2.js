@@ -2,12 +2,12 @@
 /////////////////////////// Globals ///////////////////
 let images_section = document.getElementById('images_section');
 let number_of_images = 3;
-let imgsobjs = [];
+let imgsobjs = [];//////
 let imgs = [];
 let number_of_rounds = 25;
-// let click_handler_counter = 0;
-let random_array_glob = [0, 0, 0];
-let random_array_glob2 = [0, 0, 0];
+// let click_handler_counter = 0; //////
+// let random_array_glob = [0, 0, 0]; //////
+// let random_array_glob2 = [0, 0, 0]; //////
 let imgs_array = [
   ['bag', 'jpg'],
   ['banana', 'jpg'],
@@ -57,9 +57,17 @@ function create_objects() {
   }
 }
 create_objects();
-if (localStorage.getItem('sto_imgsobjs') === null) {
-  localStorage.setItem('sto_imgsobjs', JSON.stringify(imgsobjs));
+if (localStorage.getItem('imgsobjs') === null) {
+  console.log(imgsobjs);
+  localStorage.setItem('imgsobjs', JSON.stringify(imgsobjs));
+  console.log('here');
+  console.log(imgsobjs);
 }
+let newimgobjs = JSON.parse(localStorage.getItem('imgsobjs'));
+console.log(newimgobjs);
+console.log(imgsobjs);
+
+create_objects();
 ////// generate random numbers //////
 function random_number() {
   let min = 0;
@@ -75,61 +83,95 @@ function random_array() {
       rand_array[i] = random_number();
     }
   }
-  random_array_glob = rand_array;
+
+  //   if (localStorage.getItem('random_array_glob') === null) {
+  //     localStorage.setItem('random_array_glob', JSON.stringify([0,0,0]));
+  //   }
+  localStorage.setItem('random_array_glob', JSON.stringify(rand_array));
+  //   random_array_glob = rand_array; //////
+
   return rand_array;
 }
 ////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////v
+////// generate images on a randomly manner //////
+
 function render() {
-  function removedub() {
-    while (random_array_glob[0] === random_array_glob2[0] || random_array_glob[0] === random_array_glob2[1] || random_array_glob[0] === random_array_glob2[2] || random_array_glob[1] === random_array_glob2[1] || random_array_glob[1] === random_array_glob2[2] || random_array_glob[2] === random_array_glob2[2]) {
-      random_array();
-    }
-    random_array_glob2 = random_array_glob;
+
+  if (localStorage.getItem('random_array_glob') === null) {
+    localStorage.setItem('random_array_glob', JSON.stringify([0, 0, 0]));
+    console.log(localStorage.getItem('random_array_glob'));
   }
-  removedub();
+  if (localStorage.getItem('random_array_glob2') === null) {
+    localStorage.setItem('random_array_glob2', JSON.stringify([0, 0, 0]));
+    console.log(localStorage.getItem('random_array_glob2'));
+  }
 
+  while (
+    JSON.parse(localStorage.getItem('random_array_glob'))[0] === JSON.parse(localStorage.getItem('random_array_glob2'))[0] || JSON.parse(localStorage.getItem('random_array_glob'))[0] === JSON.parse(localStorage.getItem('random_array_glob2'))[1] || JSON.parse(localStorage.getItem('random_array_glob'))[0] === JSON.parse(localStorage.getItem('random_array_glob2'))[2] || JSON.parse(localStorage.getItem('random_array_glob'))[1] === JSON.parse(localStorage.getItem('random_array_glob2'))[1] || JSON.parse(localStorage.getItem('random_array_glob'))[1] === JSON.parse(localStorage.getItem('random_array_glob2'))[2] || JSON.parse(localStorage.getItem('random_array_glob'))[2] === JSON.parse(localStorage.getItem('random_array_glob2'))[2]
+  ) {
+    random_array();
+    console.log('inside');
+  } //////
 
+  let random_array_glob = JSON.parse(localStorage.getItem('random_array_glob'));
+
+ 
+
+  //   random_array_glob2 = random_array_glob; //////
+  localStorage.setItem('random_array_glob2', JSON.stringify(random_array_glob));
   for (let i = 0; i < number_of_images; i++) {
     let img = document.getElementById('img' + i);
-    img.title = imgsobjs[random_array_glob[i]].product_name;
-    img.src = imgsobjs[random_array_glob[i]].file_path;
-    let sto_imgsobjs2 = JSON.parse(localStorage.getItem('sto_imgsobjs'));
-    sto_imgsobjs2[random_array_glob[i]].image_shown_counter++;
-    localStorage.setItem('sto_imgsobjs', JSON.stringify(sto_imgsobjs2));
+    img.title = newimgobjs[JSON.parse(localStorage.getItem('random_array_glob'))[i]].product_name; //////
+    img.src = newimgobjs[JSON.parse(localStorage.getItem('random_array_glob'))[i]].file_path; //////
+    newimgobjs[JSON.parse(localStorage.getItem('random_array_glob'))[i]].image_shown_counter++; //////
+    localStorage.setItem('newimgobjs', JSON.stringify(newimgobjs));
+
   }
-
-
   random_array();
 }
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
+////// generate images on a randomly manner //////
 /////////////////////////////////////////Add Listner////////////////////
 images_section.addEventListener('click', clickhandler);
 ////////////////////////////images handler //////////////////////
 function clickhandler(event) {
+
   if (localStorage.getItem('click_handler_counter') === null) {
     localStorage.setItem('click_handler_counter', 0);
   }
-  if (parseInt(localStorage.getItem('click_handler_counter')) === number_of_rounds) {
+  if (parseInt(localStorage.getItem('click_handler_counter')) === number_of_rounds) { //////
     images_section.removeEventListener('click', clickhandler);
     chart();
   }
   else {
     if (event.target.id === 'img0' || event.target.id === 'img1' || event.target.id === 'img2') {
       for (let i = 0; i < imgsobjs.length; i++) {
-        if (imgsobjs[i].product_name === event.target.title) {
-          let sto_imgsobjs2 = JSON.parse(localStorage.getItem('sto_imgsobjs'));
-          sto_imgsobjs2[i].image_vote++;
-          localStorage.setItem('sto_imgsobjs', JSON.stringify(sto_imgsobjs2));
-          localStorage.setItem('click_handler_counter', parseInt(localStorage.getItem('click_handler_counter')) + 1)
-
+        if (JSON.parse(localStorage.getItem('imgsobjs'))[i].product_name === event.target.title) {
+          JSON.parse(localStorage.getItem('imgsobjs'))[i].image_vote++;
+          //   click_handler_counter++; //////
+          localStorage.setItem('click_handler_counter', parseInt(localStorage.getItem('click_handler_counter'))+1);
+        //   console.log(click_handler_counter);
         }
       }
       render();
+
+
     }
   }
 
 }
 
 render();
+
+
 
 function chart() {
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -211,8 +253,7 @@ function chart() {
 function images_name() {
   let imgs_name = [];
   for (let i = 0; i < imgsobjs.length; i++) {
-    let sto_imgsobjs2 = JSON.parse(localStorage.getItem('sto_imgsobjs'));
-    imgs_name.push(sto_imgsobjs2[i].product_name);
+    imgs_name.push(JSON.parse(localStorage.getItem('newimgobjs'))[i].product_name);
   }
   return imgs_name;
 }
@@ -220,8 +261,7 @@ function images_name() {
 function images_votes() {
   let imgs_votes = [];
   for (let i = 0; i < imgsobjs.length; i++) {
-    let sto_imgsobjs2 = JSON.parse(localStorage.getItem('sto_imgsobjs'));
-    imgs_votes.push(sto_imgsobjs2[i].image_vote);
+    imgs_votes.push(JSON.parse(localStorage.getItem('newimgobjs'))[i].image_vote);
   }
   return imgs_votes;
 }
@@ -229,8 +269,7 @@ function images_votes() {
 function images_views() {
   let imgs_views = [];
   for (let i = 0; i < imgsobjs.length; i++) {
-    let sto_imgsobjs2 = JSON.parse(localStorage.getItem('sto_imgsobjs'));
-    imgs_views.push(sto_imgsobjs2[i].image_shown_counter);
+    imgs_views.push(JSON.parse(localStorage.getItem('newimgobjs'))[i].image_shown_counter);
   }
   return imgs_views;
 }
